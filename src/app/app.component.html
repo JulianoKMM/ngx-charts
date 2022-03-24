@@ -371,6 +371,7 @@
         [rotateXAxisTicks]="rotateXAxisTicks"
         [maxXAxisTickLength]="maxXAxisTickLength"
         [maxYAxisTickLength]="maxYAxisTickLength"
+        [ignorePointName]="ignorePointName"
         (select)="select($event)"
         (activate)="activate($event)"
         (deactivate)="deactivate($event)"
@@ -810,6 +811,7 @@
           [trimYAxisTicks]="trimYAxisTicks"
           [maxXAxisTickLength]="maxXAxisTickLength"
           [maxYAxisTickLength]="maxYAxisTickLength"
+          [ignorePointName]="ignorePointName"
           (select)="select($event)"
         >
         </ngx-charts-line-chart>
@@ -950,6 +952,7 @@
         (select)="select($event)"
         (activate)="activate($event)"
         (deactivate)="deactivate($event)"
+        [ignorePointName]="ignorePointName"
       >
       </ngx-charts-line-chart>
       <ngx-charts-bar-vertical
@@ -1533,6 +1536,10 @@
         <div *ngIf="chart.options.includes('yScaleMax')">
           <label>Maximum Y-Scale value</label><br />
           <input type="number" [(ngModel)]="yScaleMax" /><br />
+        </div>
+        <div *ngIf="chart.options.includes('ignorePointName')">
+          <label>Ignore Point in Name:</label><br />
+          <input type="text" [(ngModel)]="ignorePointName" /><br />
         </div>
       </div>
       <h3><a href="https://swimlane.gitbooks.io/ngx-charts/content/" target="_blank">Documentation</a></h3>

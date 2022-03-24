@@ -48,7 +48,7 @@ export interface Circle {
 @Component({
   selector: 'g[ngx-charts-circle-series]',
   template: `
-    <svg:g *ngIf="circle">
+    <svg:g *ngIf="circle && !ignoringPointName">
       <defs>
         <svg:g
           ngx-charts-svg-linear-gradient
@@ -123,6 +123,7 @@ export class CircleSeriesComponent implements OnChanges, OnInit {
   @Input() activeEntries: any[];
   @Input() tooltipDisabled: boolean = false;
   @Input() tooltipTemplate: TemplateRef<any>;
+  @Input() ignorePointName: string = '';
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();
   @Output() activate: EventEmitter<{ name: StringOrNumberOrDate }> = new EventEmitter();
@@ -133,10 +134,13 @@ export class CircleSeriesComponent implements OnChanges, OnInit {
   barVisible: boolean = false;
   gradientId: string;
   gradientFill: string;
+  ignoringPointName: boolean = false;
 
   barOrientation = BarOrientation;
   placementTypes = PlacementTypes;
   styleTypes = StyleTypes;
+
+  name: String;
 
   isSSR = false;
 
@@ -157,6 +161,10 @@ export class CircleSeriesComponent implements OnChanges, OnInit {
 
   update(): void {
     this.circle = this.getActiveCircle();
+
+    if (String(this.data.name).indexOf(this.ignorePointName) == 0) {
+      this.ignoringPointName = true;
+    }
   }
 
   getActiveCircle(): Circle {
@@ -301,13 +309,17 @@ export class CircleSeriesComponent implements OnChanges, OnInit {
   }
 
   activateCircle(): void {
-    this.barVisible = true;
-    this.activate.emit({ name: this.data.name });
+    if(!this.ignoringPointName) {
+      this.barVisible = true;
+      this.activate.emit({ name: this.data.name });
+    }
   }
 
   deactivateCircle(): void {
-    this.barVisible = false;
-    this.circle.opacity = 0;
-    this.deactivate.emit({ name: this.data.name });
+    if(!this.ignoringPointName) {
+      this.barVisible = false;
+      this.circle.opacity = 0;
+      this.deactivate.emit({ name: this.data.name });
+    }
   }
 }

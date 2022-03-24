@@ -138,6 +138,7 @@ import { isPlatformServer } from '@angular/common';
                 [data]="series"
                 [scaleType]="scaleType"
                 [visibleValue]="hoveredVertical"
+                [ignorePointName]="ignorePoint"
                 [activeEntries]="activeEntries"
                 [tooltipDisabled]="tooltipDisabled"
                 [tooltipTemplate]="tooltipTemplate"
@@ -233,6 +234,7 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
   @Input() xScaleMax: number;
   @Input() yScaleMin: number;
   @Input() yScaleMax: number;
+  @Input() ignorePointName: string;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -267,6 +269,7 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
   timelineXDomain: any;
   timelineTransform: any;
   timelinePadding: number = 10;
+  ignorePoint: string;
 
   isSSR = false;
 
@@ -318,6 +321,10 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
 
     this.clipPathId = 'clip' + id().toString();
     this.clipPath = `url(#${this.clipPathId})`;
+
+    if (this.ignorePointName) {
+      this.ignorePoint = this.ignorePointName;
+    }
   }
 
   updateTimeline(): void {
@@ -438,6 +445,7 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
   }
 
   updateHoveredVertical(item): void {
+    console.log('Certo: '+ item)
     this.hoveredVertical = item.value;
     this.deactivateAll();
   }

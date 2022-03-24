@@ -50,6 +50,7 @@
 | xScaleMax             | any                |               | the maximum value of the x axis \(if the x scale is linear or time\)                                                                                                                                                                       |
 | yScaleMin             | number             |               | the minimum value of the y axis                                                                                                                                                                                                            |
 | yScaleMax             | number             |               | the maximum value of the y axis                                                                                                                                                                                                            |
+| ignorePointName       | string             |               | Ignore point in line of the name                                                                                                                                                                                                            |
 
 ## Outputs
 

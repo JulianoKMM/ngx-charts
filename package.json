@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "run-s": "./node_modules/.bin/run-s",
     "start": "ng serve",
     "build": "ng build",
     "build:lib": "ng build @swimlane/ngx-charts",
